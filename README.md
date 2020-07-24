@@ -5,7 +5,7 @@ Video Walkthrough https://www.youtube.com/watch?v=400g2uVV090
 
 Use the following command to run the script easily in one run:
 
-wget https://raw.githubusercontent.com/sckitt/fedora-setup/master/fedora-setup.sh && sudo chmod +x fedora-setup.sh && ./fedora-setup.sh
+    wget https://raw.githubusercontent.com/sckitt/fedora-setup/master/fedora-setup.sh && sudo chmod +x fedora-setup.sh && ./fedora-setup.sh
 
 Below is everything included in this script:
 
