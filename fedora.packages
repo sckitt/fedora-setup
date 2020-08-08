@@ -1,5 +1,4 @@
 akmod-nvidia
-arc-theme
 audacious
 audacity
 blender
@@ -18,13 +17,13 @@ mangohud
 mpv
 nano
 neofetch
-papirus-icon-theme
 paprefs
 perl-Image-ExifTool.noarch
 piper
 lpf-spotify-client
 steam
 sublime-text
+terminator
 timeshift
 thunar
 unrar
