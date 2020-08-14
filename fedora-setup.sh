@@ -4,7 +4,8 @@ cd ~
 # Set Virtual Box repo
 wget https://raw.githubusercontent.com/sckitt/fedora-setup/master/fedora.packages
 # Install Rpmfusion repo
-sudo dnf install rpmfusion-free-release-tainted https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+sudo dnf install rpmfusion-free-release-tainted -y
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 # Install balenaEtcher
 cd ~/Downloads
 curl -s -v https://api.github.com/repos/balena-io/etcher/releases/latest | grep "browser_download_url.*x86_64.rpm" | cut -d : -f 2,3 | tr -d \" | wget -qi -

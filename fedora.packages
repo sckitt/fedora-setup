@@ -2,15 +2,19 @@ akmod-nvidia
 arc-theme
 audacious
 audacity
+awesome
 blender
 cmatrix
 codium
+compton
+feh
 ffmpeg
 ffmpegthumbnailer
 ffmpegthumbs
 gimp
 git
 handbrake-gui
+htop
 ibus
 ibus-anthy
 keepassxc
@@ -20,11 +24,11 @@ mangohud
 mpv
 nano
 neofetch
-papirus-icon-theme
 paprefs
 perl-Image-ExifTool.noarch
 piper
 lpf-spotify-client
+lxappearance
 steam
 sublime-text
 terminator
@@ -33,3 +37,4 @@ thunar
 unrar
 VirtualBox
 vlc
+xscreensaver
