@@ -2,12 +2,11 @@ akmod-nvidia
 arc-theme
 audacious
 audacity
-awesome
+balena-etcher-electron
 blender
 cmatrix
 codium
-compton
-feh
+eom
 ffmpeg
 ffmpegthumbnailer
 ffmpegthumbs
@@ -37,4 +36,4 @@ thunar
 unrar
 VirtualBox
 vlc
-xscreensaver
+wget
