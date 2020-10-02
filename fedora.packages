@@ -18,6 +18,7 @@ ibus
 ibus-anthy
 keepassxc
 libdvdcss
+lsd
 make
 mangohud
 mpv
@@ -28,6 +29,7 @@ perl-Image-ExifTool.noarch
 piper
 lpf-spotify-client
 lxappearance
+rofi
 steam
 sublime-text
 terminator

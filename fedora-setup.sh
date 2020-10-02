@@ -60,6 +60,10 @@ install_proton_builds () {
     for i in *.gz; do tar -xvzf "$i"  -C ~/.steam/steam/compatibilitytools.d; done
 }
 
+change_hostname () {
+    hostnamectl set-hostname fedora
+}
+
 main () {
     #get_files
     enable_repositories
@@ -67,7 +71,8 @@ main () {
     install_programs
     install_packages
     rice_shell
-    install_proton_builds
+    #install_proton_builds
+    change_hostname
 }
 
 main "$@"
