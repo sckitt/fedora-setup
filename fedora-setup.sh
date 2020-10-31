@@ -3,35 +3,31 @@
 get_files () {
     cd ~
     wget https://raw.githubusercontent.com/sckitt/fedora-setup/master/fedora.packages
-    wget https://raw.githubusercontent.com/sckitt/fedora-setup/master/fancy-bash-promt.sh
 }
 
-enable_repositories () {
-    # Install RPM Fusion repo
+enable_repos () {
+    # Enable RPM Fusion repos
     sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
     sudo dnf install rpmfusion-free-release-tainted -y
-    # Install balenaEtcher repo
-    sudo wget https://balena.io/etcher/static/etcher-rpm.repo -O /etc/yum.repos.d/etcher-rpm.repo
-    # Install Sublime-Text repo
+    # Import Sublime-Text repo
     sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
     sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
-    # Install VSCodium repo
+    # Import VSCodium repo
     sudo rpm --import https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
     printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=gitlab.com_paulcarroty_vscodium_repo\nbaseurl=https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg" | sudo tee -a /etc/yum.repos.d/vscodium.repo 
 }
 
-update_cache () {
+update () {
     sudo dnf makecache
 }
 
 install_programs () {
     mkdir -p ~/src && cd ~/src
+    # Install Surfn icons
+    git clone https://github.com/erikdubois/Surfn
+    cd Surfn && cd surfn-icons && mv * ~/.icons && cd ~/src
     # Install Tixati
     sudo dnf install https://download2.tixati.com/download/tixati-2.73-1.x86_64.rpm -y
-    # Download Tor
-    wget https://www.torproject.org/dist/torbrowser/9.0.10/tor-browser-linux64-9.0.10_en-US.tar.xz
-    tar xf tor-browser-linux64-9.0.10_en-US.tar.xz
-    rm tor-browser-linux64-9.0.10_en-US.tar.xz
     # Download Tutanota
     mkdir -p tutanota && cd tutanota
     wget https://mail.tutanota.com/desktop/tutanota-desktop-linux.AppImage
@@ -40,39 +36,64 @@ install_programs () {
     # Install youtube-dl
     sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
     sudo chmod a+rx /usr/local/bin/youtube-dl
+
+    # TODO: add torbrowser, mullvad-vpn
 }
 
 install_packages () {
-    sudo dnf install $(cat ~/fedora.packages) -y
-}
-
-rice_shell () {
-    # Source: https://github.com/ChrisTitusTech/scripts/blob/master/fancy-bash-promt.sh
-    cd ~
-    cat ~/fancy-bash-promt.sh >> ~/.bashrc
-}
-
-install_proton_builds () {
-    cd ~/Downloads
-    curl -s -v https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep "browser_download_url.*tar.gz" | cut -d : -f 2,3 | tr -d \" | wget -qi -
-    wget https://github.com/GloriousEggroll/proton-ge-custom/releases/download/4.21-GE-2/Proton-4.21-GE-2.tar.gz
-    mkdir -p ~/.steam/steam/compatibilitytools.d
-    for i in *.gz; do tar -xvzf "$i"  -C ~/.steam/steam/compatibilitytools.d; done
+    sudo dnf install $(cat fedora.packages) -y
 }
 
 change_hostname () {
     hostnamectl set-hostname fedora
 }
 
+esync () {
+    if [[ $(ulimit -Hn) -ge 524288 ]]; then
+        echo "Esync enabled"
+    else
+        while true; do
+            read -p "Esync disabled. Do you want to enable? [y/n]" yn
+            case $yn in
+                [Yy]* ) echo 'DefaultLimitNOFILE=524288' | sudo tee -a /etc/systemd/system.conf \
+                        echo 'DefaultLimitNOFILE=524288' | sudo tee -a /etc/systemd/user.conf
+                        break;;
+                [Nn]* ) exit;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+    fi
+}
+
+dxvk () {
+    #grep --color=always -n "multilib" /etc/pacman.conf
+    if grep -Fxq "[multilib]" /etc/pacman.conf
+        then
+                echo "String found"
+        else
+                echo "String not found"
+    fi
+}
+
+setup_gaming () {
+    # mpv https://www.youtube.com/watch?v=-jLCjY7PNig
+    esync
+    dxvk
+}
+
+import_settings () {
+    sh fedora-import.sh
+}
+
 main () {
     #get_files
-    enable_repositories
-    update_cache
-    install_programs
-    install_packages
-    rice_shell
-    #install_proton_builds
-    change_hostname
+    #enable_repos
+    #update
+    #install_programs
+    #install_packages
+    #change_hostname
+    #setup_gaming
+    #import_settings
 }
 
 main "$@"
