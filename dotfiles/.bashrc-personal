@@ -1,4 +1,8 @@
-# ibus-anthy settings
+source .obfuscated-directories
+
+# ibus settings if you need them
+# type ibus-setup in terminal to change settings and start the daemon
+# uncomment the next few lines and restart
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
@@ -9,29 +13,22 @@ cdc () {
 }
 
 # youtube-dl
-scrape-channels () {
-    channel_name=(
-        "裏ぱるるーむ"
-        "ぱるるーむ"
-        "前田亜美"
-        "板野友美"
-    )
+ytdls () {
+    channels=(  https://www.youtube.com/channel/UCgjdoTv1mTJirJk_2_30kOw 裏ぱるるーむ
+                https://www.youtube.com/channel/UCaW_iei_YZRuUogGFOXofMw ぱるるーむ 
+                https://www.youtube.com/channel/UC9VMTcvrXISIHyCibiaFfGw 前田亜美
+                https://www.youtube.com/channel/UCDLqvTPnN70jKZNqaDF4GwQ 板野友美
+                https://www.youtube.com/channel/UC-MwCIXimPQ_2D5hsb1MFFQ 夜めあ連合)
 
-    url=(
-        "https://www.youtube.com/channel/UCgjdoTv1mTJirJk_2_30kOw" #裏ぱるるーむ
-        "https://www.youtube.com/channel/UCaW_iei_YZRuUogGFOXofMw" #ぱるるーむ 
-        "https://www.youtube.com/channel/UC9VMTcvrXISIHyCibiaFfGw" #前田亜美
-        "https://www.youtube.com/channel/UCDLqvTPnN70jKZNqaDF4GwQ" #板野友美
-    )
-
-    len=${#channel_name[@]}
-
-    for (( i=0; i<$len; i++ )); do
-        echo youtube-dl -f bestvideo+bestaudio ${url[$i]} -o channel_${channel_name[$i]};
+    for (( i=0; i<=${#channels[@]}; i++ )); do
+        if (( ${i} % 2 != 0 )); then
+            cd $YTDL
+            mkdir -p "channel_${channels[i]}" && cd "channel_${channels[i]}"
+            youtube-dl -f bestvideo+bestaudio ${channels[i-1]}
+            cd ..
+        fi
     done
 }
-
-### ALIASES
 
 # navigation
 alias ..="cd .." 
@@ -39,17 +36,13 @@ alias .2="cd ../.."
 alias .3="cd ../../.."
 alias .4="cd ../../../.."
 alias .5="cd ../../../../.."
-alias cdd="echo cdc"
 
 # Sort by image dimensions
 alias lss="find . -exec exiftool -S -t -q -FileName -ImageSize  {} + | sort -k2n,2 > dir-dimensions_tmp.txt ; sed '0~2d' dir-dimensions_tmp.txt > dir-dimensions.txt ; rm dir-dimensions_tmp.txt"
 
-# scrot
-alias scrot="cd ~/Pictures && scrot"
-
 # youtube-dl
 alias ytdb="youtube-dl -f bestvideo+bestaudio"
-alias ytdbb="youtube-dl -f bestvideo+bestaudio -a batch.txt"
+alias ytdB="youtube-dl -f bestvideo+bestaudio -a batch.txt"
 
 # redshift
 alias rs="redshift -x ; redshift -O"
@@ -60,8 +53,5 @@ alias change-bg="feh --bg-fill --randomize ~/Pictures/wallpapers/japan"
 # killall
 alias killtor="killall firefox.real"
 
-# frontend-redirect
-alias fr="sh .bashrc-fr.sh"
-
 # backup dotfiles
-alias fedora-export="cd '/home/user/Documents/github/fedora-setup/' && sh fedora-export.sh"
+alias config-export="cd '/home/user/Documents/github/fedora-setup/' && sh fedora-export.sh"

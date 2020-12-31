@@ -6,7 +6,7 @@ bind-key k up
 bind-key l open
 
 macro . set browser "mpv %u" ; open-in-browser
-macro , set browser "w3m" ; open-in-browser
+macro , set browser "mpv --loop %u" ; open-in-browser
 
 color listnormal cyan default
 color listfocus black yellow standout bold

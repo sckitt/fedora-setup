@@ -117,7 +117,7 @@ local modkey1      = "Control"
 -- personal variables
 --change these variables if you want
 local browser1          = "firefox"
-local browser2          = "torbrowser-launcher"
+local browser2          = "/home/user/tor-browser_en-US/Browser/start-tor-browser"
 local editor            = os.getenv("EDITOR") or "nano"
 local editorgui         = "subl3"
 local filemanager       = "thunar"
@@ -318,7 +318,7 @@ globalkeys = my_table.join(
     -- super + ...
     --awful.key({ modkey }, "h", function () awful.util.spawn( "urxvt -T 'htop task manager' -e htop" ) end,
         --{description = "htop", group = "super"}),
-    awful.key({ modkey }, "r", function () awful.util.spawn( "rofi -show run -lines 6 -theme Dracula" ) end,
+    awful.key({ altkey }, "space", function () awful.util.spawn( "rofi -show run -lines 6 -theme Dracula" ) end,
         {description = "rofi", group = "super"}),
     awful.key({ modkey }, "t", function () awful.util.spawn( terminal ) end,
         {description = "terminal", group = "super"}),
@@ -326,7 +326,7 @@ globalkeys = my_table.join(
         {description = "pulseaudio control", group = "super"}),
     --awful.key({ modkey }, "u", function () awful.screen.focused().mypromptbox:run() end,
           --{description = "run prompt", group = "super"}),
-    awful.key({ modkey }, "x",  function () awful.util.spawn( "arcolinux-logout" ) end,
+    awful.key({ modkey }, "x",  function () awful.util.spawn( "xscreensaver-command -lock" ) end,
       {description = "exit", group = "hotkeys"}),
     awful.key({ modkey }, "Escape", function () awful.util.spawn( "xkill" ) end,
         {description = "Kill proces", group = "hotkeys"}),
@@ -614,9 +614,7 @@ clientkeys = my_table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, }, "c",      function (c) c:kill()                         end,
-              {description = "close", group = "hotkeys"}),
-    awful.key({ modkey, },           "q",      function (c) c:kill()                         end,
+    awful.key({ modkey, },           "w",      function (c) c:kill()                         end,
               {description = "close", group = "hotkeys"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
@@ -953,4 +951,5 @@ awful.spawn.with_shell("picom -b --config  $HOME/.config/awesome/picom.conf")
 awful.spawn.with_shell("feh --bg-fill --randomize ~/Pictures/wallpapers/japan")
 awful.spawn.with_shell("redshift -x && redshift -O 3000")
 awful.spawn.with_shell("ibus-setup")
-awful.spawn.with_shell("mullvad-vpn")
+awful.spawn.with_shell("'/opt/Mullvad VPN/mullvad-vpn' %U")
+awful.spawn.with_shell("xscreensaver")

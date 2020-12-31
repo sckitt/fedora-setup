@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 clear_cache () {
-	sudo rm -r $(pwd)/dotfiles/.config/sublime-text-3
+	sudo rm -f -r $(pwd)/dotfiles/.config/sublime-text-3
 }
 
 export_settings () {
@@ -14,13 +14,11 @@ export_settings () {
     cp ~/.config/VSCodium/User/settings.json $(pwd)/dotfiles/.config/VSCodium/User
     cp -r ~/.newsboat $(pwd)/dotfiles
     cp -r ~/.themes $(pwd)/dotfiles
-    cp -r ~/.w3m $(pwd)/dotfiles
-    cp ~/.bashrc-personal $(pwd)/dotfiles/.bashrc-personal
-    #cp ~/.bashrc-fr.sh $(pwd)/dotfiles/.bashrc-fr.sh
+    cp ~/.bashrc-personal $(pwd)/dotfiles
 }
 
 wipe_sensitive () {
-    #rm $(pwd)/dotfiles/.newsboat/history.cmdline
+    rm -f $(pwd)/dotfiles/.newsboat/history.cmdline
     rm -r $(pwd)/dotfiles/.config/sublime-text-3/Local
 }
 
